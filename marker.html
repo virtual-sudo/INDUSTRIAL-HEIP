@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Ensures the background is invisible in 3DVista */
+        /* 1. Reset and Transparent Background */
         html, body { 
             margin: 0; 
             padding: 0; 
@@ -14,50 +14,47 @@
             width: 100vw;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            pointer-events: none;
+            justify-content: center;
         }
 
         .container {
             display: flex;
             align-items: center;
-            /* Gap is 1.5% of the screen height */
-            gap: 1.5vh; 
+            /* Using a much higher multiplier (8vh) to fight the high-res shrink */
+            gap: 2vh; 
             padding: 2vh;
-            pointer-events: auto;
+            filter: drop-shadow(0 0.5vh 1vh rgba(0,0,0,0.5));
         }
 
         .node {
-            /* Circle size is 4% of the screen height */
-            width: 4vh;
-            height: 4vh;
+            /* Large circle to match your reference photo */
+            width: 10vh; 
+            height: 10vh;
             background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 1.5vh rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 3vh rgba(255, 255, 255, 0.9);
             animation: pulse 2s infinite ease-in-out;
             flex-shrink: 0;
         }
 
         .label {
-            background: #1b492b;
+            background: #1b492b; /* Matching the Hermosa industrial green */
             color: #ffffff;
-            /* Vertical padding 1.2%, Horizontal 3% of screen height */
-            padding: 1.2vh 3vh;
-            border-radius: 0.8vh;
-            /* Font size is 2.5% of the screen height */
-            font-size: 2.5vh; 
-            font-family: 'Arial Black', Gadget, sans-serif;
+            /* Dynamic padding and huge font to fill the 8000px panorama space */
+            padding: 1.5vh 4vh;
+            border-radius: 1vh;
+            font-size: 6vh; 
+            font-family: 'Arial Black', sans-serif;
             font-weight: 900;
             text-transform: uppercase;
             white-space: nowrap;
-            border: 0.2vh solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0.8vh 1.5vh rgba(0,0,0,0.4);
-            letter-spacing: 0.1vh;
+            border: 0.4vh solid rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.2vh;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.2); filter: brightness(1.2); }
+            50% { transform: scale(1.15); filter: brightness(1.2); }
         }
     </style>
 </head>

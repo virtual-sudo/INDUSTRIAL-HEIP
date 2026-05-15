@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
+        /* Ensures the background is invisible in 3DVista */
         html, body { 
             margin: 0; 
             padding: 0; 
@@ -12,54 +14,50 @@
             width: 100vw;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            pointer-events: none;
         }
 
         .container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 4vw; /* Responsive gap */
-            width: 95%; /* Fills 95% of the Web Frame width */
-            height: 90%; /* Fills 90% of the Web Frame height */
+            /* Gap is 1.5% of the screen height */
+            gap: 1.5vh; 
+            padding: 2vh;
+            pointer-events: auto;
         }
 
         .node {
-            /* Responsive sizing based on the smaller dimension of the frame */
-            width: 15vh; 
-            height: 15vh;
-            max-width: 40px; /* Safety cap */
-            max-height: 40px;
-            background: white;
+            /* Circle size is 4% of the screen height */
+            width: 4vh;
+            height: 4vh;
+            background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 2vw white;
+            box-shadow: 0 0 1.5vh rgba(255, 255, 255, 0.8);
             animation: pulse 2s infinite ease-in-out;
             flex-shrink: 0;
         }
 
         .label {
             background: #1b492b;
-            color: white;
-            /* Padding and Font scale based on the height of the frame */
-            padding: 2vh 4vw; 
-            border-radius: 1vh;
-            font-family: 'Arial Black', sans-serif;
-            font-size: 25px; /* Large base size */
+            color: #ffffff;
+            /* Vertical padding 1.2%, Horizontal 3% of screen height */
+            padding: 1.2vh 3vh;
+            border-radius: 0.8vh;
+            /* Font size is 2.5% of the screen height */
+            font-size: 2.5vh; 
+            font-family: 'Arial Black', Gadget, sans-serif;
             font-weight: 900;
             text-transform: uppercase;
             white-space: nowrap;
-            border: 0.5vh solid rgba(255,255,255,0.3);
-            box-shadow: 0 1vh 2vh rgba(0,0,0,0.5);
-            
-            /* This ensures the text scales to fit the box */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 0.2vh solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0.8vh 1.5vh rgba(0,0,0,0.4);
+            letter-spacing: 0.1vh;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.2); filter: brightness(1.2); }
         }
     </style>
 </head>

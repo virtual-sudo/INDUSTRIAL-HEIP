@@ -1,0 +1,53 @@
+/* Base container for the landmark */
+.eco-landmark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    /* Hardware acceleration - fixes the "stuttering" when panning */
+    will-change: transform;
+    pointer-events: auto;
+}
+
+/* The White Circle (Node) */
+.eco-node {
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 2px 5px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+/* The Dark Green Label */
+.eco-label {
+    background-color: #1b492b; /* Matching the green from your photo */
+    color: #ffffff;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover effect for interactivity */
+.eco-landmark:hover .eco-label {
+    background-color: #26603d;
+    transform: translateY(-2px);
+}
+
+/* Pulsing Animation (Optional - makes them pop) */
+.eco-landmark .eco-node {
+    animation: ecoPulse 2s infinite ease-in-out;
+}
+
+@keyframes ecoPulse {
+    0% { transform: scale(1); filter: brightness(100%); }
+    50% { transform: scale(1.15); filter: brightness(120%); }
+    100% { transform: scale(1); filter: brightness(100%); }
+}

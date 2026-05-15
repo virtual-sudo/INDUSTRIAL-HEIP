@@ -2,21 +2,65 @@
 <html>
 <head>
     <style>
-        body { margin: 0; overflow: hidden; display: flex; align-items: center; gap: 10px; font-family: sans-serif; }
-        .node { width: 20px; height: 20px; background: white; border-radius: 50%; box-shadow: 0 0 15px white; animation: pulse 2s infinite; }
-        .label { background: #1b492b; color: white; padding: 6px 15px; border-radius: 4px; font-size: 12px; font-weight: bold; white-space: nowrap; border: 1px solid rgba(255,255,255,0.3); }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        /* Transparent background is essential for 3DVista */
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            background: transparent !important; 
+            overflow: hidden; 
+            font-family: sans-serif;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .node {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 15px white;
+            animation: pulse 2s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .label {
+            background: #1b492b;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
-    <div class="node"></div>
-    <div id="textDisplay" class="label">LOADING...</div>
+    <div class="container">
+        <div class="node"></div>
+        <div id="text" class="label">LOADING...</div>
+    </div>
 
     <script>
-        // This script reads the name from the URL: marker.html?name=BIOTEQUE
-        const params = new URLSearchParams(window.location.search);
-        const name = params.get('name') || 'LANDMARK';
-        document.getElementById('textDisplay').innerText = name.toUpperCase();
+        // Grab the name from the URL (?name=SOMETHING)
+        const urlParams = new URLSearchParams(window.location.search);
+        const landmarkName = urlParams.get('name') || 'HEIP';
+        document.getElementById('text').innerText = landmarkName.toUpperCase();
     </script>
 </body>
 </html>

@@ -32,6 +32,7 @@
         .node {
             /* Circle takes up nearly the full height of the box */
             height: 80%; 
+            width: auto; /* Ensures width complies strictly with aspect-ratio */
             aspect-ratio: 1 / 1;
             background: #ffffff;
             border-radius: 50%;
@@ -60,10 +61,11 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             
-            /* Ensures perfect calculation bounds */
+            /* Structural safety rules to prevent flattening */
             overflow: hidden;
-            padding: 0 8px;
+            padding: 0 12px;
             box-sizing: border-box;
+            line-height: 1; 
         }
 
         @keyframes pulse {
@@ -86,30 +88,28 @@
         textContainer.innerText = name.toUpperCase();
 
         function autoFitText() {
-            // Start scaling down from the maximum container height
-            let fontSize = textContainer.clientHeight;
+            // Start at 85% of the container height to guarantee a clean vertical safety cushion
+            let fontSize = textContainer.clientHeight * 0.85;
             textContainer.style.fontSize = fontSize + 'px';
 
-            // Shrink the text until it fits perfectly inside both width and height limits
+            // Shrink down with high-precision increments if text overflows width OR height bounds
             while (
                 (textContainer.scrollWidth > textContainer.clientWidth || 
                  textContainer.scrollHeight > textContainer.clientHeight) && 
                 fontSize > 1
             ) {
-                fontSize--;
+                fontSize -= 0.5;
                 textContainer.style.fontSize = fontSize + 'px';
             }
         }
 
-        // Use ResizeObserver to catch 3DVista frame adjustments accurately
+        // Live monitor for 3DVista frame modifications
         const resizeObserver = new ResizeObserver(() => {
             autoFitText();
         });
-        
-        // Observe the body layout changes
         resizeObserver.observe(document.body);
 
-        // Initial trigger
+        // Run setup immediately
         autoFitText();
     </script>
 </body>

@@ -14,7 +14,7 @@
             width: 100vw;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: left;
         }
 
         .container {
@@ -60,9 +60,9 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             
-            /* Safety constraints for dynamic calculation */
-            overflow: hidden; 
-            padding: 0 4px; 
+            /* Ensures perfect calculation bounds */
+            overflow: hidden;
+            padding: 0 8px;
             box-sizing: border-box;
         }
 
@@ -86,11 +86,11 @@
         textContainer.innerText = name.toUpperCase();
 
         function autoFitText() {
-            // Start at the maximum possible height of the container
+            // Start scaling down from the maximum container height
             let fontSize = textContainer.clientHeight;
             textContainer.style.fontSize = fontSize + 'px';
 
-            // Shrink the font size step-by-step until it perfectly fits both width and height bounds
+            // Shrink the text until it fits perfectly inside both width and height limits
             while (
                 (textContainer.scrollWidth > textContainer.clientWidth || 
                  textContainer.scrollHeight > textContainer.clientHeight) && 
@@ -101,11 +101,16 @@
             }
         }
 
-        // Run instantly on load
-        autoFitText();
+        // Use ResizeObserver to catch 3DVista frame adjustments accurately
+        const resizeObserver = new ResizeObserver(() => {
+            autoFitText();
+        });
+        
+        // Observe the body layout changes
+        resizeObserver.observe(document.body);
 
-        // Keep it responsive if the window or frame size changes
-        window.addEventListener('resize', autoFitText);
+        // Initial trigger
+        autoFitText();
     </script>
 </body>
 </html>

@@ -27,6 +27,7 @@
             gap: 4%; 
             box-sizing: border-box;
             padding: 2%; /* Tiny safety margin so it doesn't clip */
+            transition: gap 0.2s ease, padding 0.2s ease;
         }
 
         .node {
@@ -39,6 +40,7 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
             animation: pulse 2s infinite ease-in-out;
             flex-shrink: 0;
+            transition: height 0.2s ease;
         }
 
         .label {
@@ -66,6 +68,41 @@
             padding: 0 12px;
             box-sizing: border-box;
             line-height: 1; 
+            transition: height 0.2s ease, padding 0.2s ease;
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+
+        /* Targets smaller screens or narrower 3DVista frame widths */
+        @media (max-width: 600px) {
+            .container {
+                gap: 2%; /* Tighten space between components */
+                padding: 1%;
+            }
+            .node {
+                height: 75%; /* Slightly scale down circle to yield width to text */
+            }
+            .label {
+                height: 75%;
+                padding: 0 6px; /* Narrower internal text padding */
+            }
+        }
+
+        /* Targets highly restrictive mini-display frames */
+        @media (max-width: 380px) {
+            .container {
+                gap: 1.5%;
+            }
+            .node, .label {
+                height: 70%; /* Give maximum horizontal breathing room to prevent extreme text clipping */
+            }
+        }
+
+        /* Targets ultra-short horizontal banners */
+        @media (max-height: 120px) {
+            .node, .label {
+                height: 90%; /* Maximize vertical layout usage when the frame height is tiny */
+            }
         }
 
         @keyframes pulse {
@@ -82,7 +119,7 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name') || 'HEIP';
+        const name = urlParams.get('name') || 'BIOTEQUE';
         const textContainer = document.getElementById('text');
         
         textContainer.innerText = name.toUpperCase();
@@ -103,7 +140,7 @@
             }
         }
 
-        // Live monitor for 3DVista frame modifications
+        // Live monitor for browser changes and 3DVista frame modifications
         const resizeObserver = new ResizeObserver(() => {
             autoFitText();
         });
